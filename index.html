@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Contact us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div class="hero">
+    <h3>Coming Soon...</h3>
+    <h1>Our Brand New <br />Website is on its way</h1>
+    <p>Request for a Demo</p>
+    <form action="" name="submit-to-google-sheet">
+      <input type="text" name="Name" placeholder="Your Name">
+      <input type="email" name="Email" placeholder="Your Email" />
+      <input type="text" placeholder="Your contact number" type="number" name="Number">
+      <button type="submit">
+        <img src="send-icon.png" alt="" width="25px" />
+      </button>
+
+    
+    </form>
+    <span id="msg"></span>
+  </div>
+
+  <script>
+    let msg = document.getElementById("msg");
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbxCjF7tQfTyBDEvydzZmIF-oTMxgTXAfFo8kLBbDdOF9s0HtqiuT8c2cSRhu1ARiI2V/exec";
+    const form = document.forms["submit-to-google-sheet"];
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      fetch(scriptURL, { method: "POST", body: new FormData(form) })
+        .then((response) => {
+          msg.innerHTML = "Details submitted successfully";
+          setTimeout(() => {
+            msg.innerHTML = "";
+          }, 5000);
+          form.reset();
+        })
+        .catch((error) => console.error("Error!", error.message));
+    });
+  </script>
+</body>
+
+</html>
